@@ -28,7 +28,7 @@ public class executable {
                         produtos.eliminarProducto(scanner);
                         break;
                     case 4:
-                        // Ver total a pagar
+                        produtos.totalCompra();
                         break;
                     case 5:
                         // Salir
