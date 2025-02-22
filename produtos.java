@@ -94,4 +94,19 @@ public class produtos {
         }
         System.out.println(ConsoleColor.cyanText("|===========================================================|"));
     }
+
+    public static void totalCompra(){
+        int total = 0;
+        for (double precio : precioSeleccionado) {
+            total += precio;
+        }
+        // Imprimir el ticket de compra
+        System.out.println("Tikete de compra");
+        System.out.println("-----------------");
+        for (int i = 0; i < productoSeleccionado.size(); i++) {
+            System.out.printf("%s: $%d%n", productoSeleccionado.get(i), precioSeleccionado.get(i));
+        }
+        System.out.println("-----------------");
+        System.out.printf("Total: $%d%n", total);
+    }
 }
