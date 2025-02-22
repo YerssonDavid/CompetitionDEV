@@ -55,8 +55,9 @@ public class produtos {
                 System.out.println(ConsoleColor.cyanText("|-") + ConsoleColor.blueText(" " + (i + 1) + ". " + productoSeleccionado.get(i) + " - $" + precioSeleccionado.get(i)));
             }
         }
-        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
-        System.out.print(ConsoleColor.orangeText("|- Presione enter para continuar"));
+        System.out.println(ConsoleColor.orangeText("|===========================================================|"));
+        System.out.println(ConsoleColor.orangeText("|- 1. Pasar a pagar "));
+        System.out.println(ConsoleColor.orangeText("|- 2. agregar otro producto al carrito "));
         scanner.nextLine();
     }
 }
