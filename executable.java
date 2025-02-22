@@ -25,8 +25,7 @@ public class executable {
                         produtos.productosEnCarrito(scanner);
                         break;
                     case 3:
-                        // Eliminar producto del carrito
-                        // productos.eliminarProducto(scanner);
+                        produtos.eliminarProducto(scanner);
                         break;
                     case 4:
                         // Ver total a pagar
