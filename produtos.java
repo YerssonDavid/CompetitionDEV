@@ -59,4 +59,39 @@ public class produtos {
         System.out.print(ConsoleColor.orangeText("|- Presione enter para continuar"));
         scanner.nextLine();
     }
+
+    public static void eliminarProducto(Scanner scanner) {
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+        System.out.println(ConsoleColor.cyanText("|====================-") + ConsoleColor.blueText("ELIMINAR PRODUCTO") + ConsoleColor.cyanText("-=====================|"));
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+        for (int i = 0; i < productoSeleccionado.size(); i++) {
+            System.out.println((i + 1) + ". " + productoSeleccionado.get(i));
+        }
+
+        System.out.println("Escoja el producto a eliminar");
+        var opcion = scanner.nextLine();
+        try {
+            int indice = Integer.parseInt(opcion) - 1;
+            if (indice >= 0 && indice < productoSeleccionado.size()) {
+                String productoEliminado = productoSeleccionado.get(indice);
+                productoSeleccionado.remove(indice);
+                precioSeleccionado.remove(indice);
+                System.out.println("El producto: '" + productoEliminado + "' ha sido eliminado del carrito");
+            } else {
+                System.out.println("Opción inválida, inténtelo nuevamente.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR: Ingresa solo un valor numérico");
+        }
+    }
+
+    public static void verCarrito() {
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+        System.out.println(ConsoleColor.cyanText("|====================-") + ConsoleColor.blueText("CARRITO DE COMPRAS") + ConsoleColor.cyanText("-=====================|"));
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+        for (int i = 0; i < productoSeleccionado.size(); i++) {
+            System.out.println((i + 1) + ". " + productoSeleccionado.get(i) + " - $" + precioSeleccionado.get(i));
+        }
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+    }
 }
