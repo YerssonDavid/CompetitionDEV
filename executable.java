@@ -4,7 +4,7 @@ public class executable {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         boolean exit = false;
         showMenu.welcome();
@@ -32,6 +32,7 @@ public class executable {
                         break;
                     case 5:
                         // Salir
+                        showMenu.goodbye();
                         exit = true;
                         break;
                     default:
@@ -40,13 +41,10 @@ public class executable {
             } // Se captura la excepción en caso de que la opción no sea un número
             catch (NumberFormatException e) {
                 showMenu.serrMenu();
-                break;
             } // Se captura la excepción en caso de que la opción sea nula
             catch (NullPointerException e) {
                 showMenu.serrMenu();
-                break;
             }
         }
-
     }
 }

@@ -9,8 +9,13 @@ public class produtos {
 
     static List<String> productoSeleccionado = new ArrayList<>();
     static List<Integer> precioSeleccionado = new ArrayList<>();
+    static List<Integer> cantidadSeleccionada = new ArrayList<>();
+    static List<Integer> total = new ArrayList<>();
 
     public static void agregarAlCarrito(Scanner scanner) {
+        boolean exit = false;
+        while (!exit) {
+
         System.out.println(ConsoleColor.cyanText("|===========================================================|"));
         System.out.println(ConsoleColor.cyanText("|====================-") + ConsoleColor.blueText("AGREGAR PRODUCTO")
                 + ConsoleColor.cyanText("-=====================|"));
@@ -32,6 +37,22 @@ public class produtos {
             }
             productoSeleccionado.add(productos[option - 1]);
             precioSeleccionado.add(precios[option - 1]);
+
+            System.out.print(ConsoleColor.orangeText("|- Seleccione la cantidad del producto:"));
+            int cantidad = 0;
+
+            try {
+                cantidad = scanner.nextInt();
+                if (cantidad < 1) {
+                    throw new NullPointerException();
+                }
+                cantidadSeleccionada.add(cantidad);
+                total.add(precios[option - 1] * cantidad);
+                System.out.println(
+                        ConsoleColor.cyanText("|===========================================================|"));
+            } catch (NumberFormatException e) {
+                showMenu.serrMenu();
+            }
             System.out.println(ConsoleColor.greenText("|===========================================================|"));
             System.out.println(ConsoleColor.greenText("|- Producto agregado correctamente                          |"));
             System.out.println(ConsoleColor.greenText("|===========================================================|"));
@@ -41,29 +62,37 @@ public class produtos {
                             + ConsoleColor.cyanText("                       |"));
             System.out.println(ConsoleColor.cyanText("|-") + ConsoleColor.blueText("2. pasar a facturacion")
                     + ConsoleColor.cyanText("                                    |"));
-            int option2 = scanner.nextInt();
-            scanner.nextLine();
-            if (option2 == 1) {
-                agregarAlCarrito(scanner);
+            System.out.println(ConsoleColor.cyanText("|-") + ConsoleColor.blueText("3. Voler al menu principal"));
+            System.out.println(ConsoleColor.cyanText("|===========================================================|"));
+            System.out.print(ConsoleColor.orangeText("|- Seleccione una opcion: "));
+            try {
+                int option2 = scanner.nextInt();
                 scanner.nextLine();
-            } else {
-                productosEnCarrito(scanner);
-                scanner.nextLine();
+                if (option2 == 1) {
+                    agregarAlCarrito(scanner);
+                    scanner.nextLine();
+                } else if (option2 == 2) {
+                    productosEnCarrito(scanner);
+                    scanner.nextLine();
+                } else if (option2 == 3) {
+                    showMenu.printLoadingBar();
+                    exit = true;
+                }
+            } catch (Exception e) {
+                showMenu.serrMenu();
             }
         } catch (NumberFormatException e) {
             System.out.println(ConsoleColor.redText("|===========================================================|"));
             System.out.println(ConsoleColor.redText("|- Debe seleccionar un número                               |"));
             System.out.println(ConsoleColor.redText("|===========================================================|"));
-
         } catch (NullPointerException e) {
             System.out.println(ConsoleColor.redText("|===========================================================|"));
             System.out.println(ConsoleColor.redText("|- Debe seleccionar una opción válida                       |"));
             System.out.println(ConsoleColor.redText("|===========================================================|"));
-
-        }
+        }}
     }
 
-    public static void productosEnCarrito(Scanner scanner) {
+    public static void productosEnCarrito(Scanner scanner) throws InterruptedException {
         System.out.println(ConsoleColor.cyanText("|===========================================================|"));
         System.out.println(ConsoleColor.cyanText("|================-")
                 + ConsoleColor.blueText("PRODUCTOS EN EL CARRITO") + ConsoleColor.cyanText("-==================|"));
@@ -74,12 +103,27 @@ public class produtos {
         } else {
             for (int i = 0; i < productoSeleccionado.size(); i++) {
                 System.out.println(ConsoleColor.cyanText("|-") + ConsoleColor.blueText(
-                        " " + (i + 1) + ". " + productoSeleccionado.get(i) + " - $" + precioSeleccionado.get(i)));
+                        " " + (i + 1) + ". " + productoSeleccionado.get(i) + " - Unit $"
+                                + precioSeleccionado.get(i))
+                        + ConsoleColor.cyanText(
+                                " - Cantidad: " + cantidadSeleccionada.get(i) + " - Total: $" + total.get(i)));
             }
         }
-        System.out.println(ConsoleColor.orangeText("|===========================================================|"));
+        System.out.println(ConsoleColor.cyanText("|===========================================================|"));
         System.out.println(ConsoleColor.orangeText("|- 1. Pasar a pagar "));
         System.out.println(ConsoleColor.orangeText("|- 2. agregar otro producto al carrito "));
+        System.out.println(ConsoleColor.orangeText("|- 3. volver al menu principal "));
+        System.out.print(ConsoleColor.orangeText("|- Seleccione una opcion: "));
+        var option = scanner.nextInt();
+        if (option == 1) {
+            totalCompra();
+        } else if (option == 2) {
+            agregarAlCarrito(scanner);
+            scanner.nextLine();
+        } else if (option == 3) {
+            showMenu.printLoadingBar();
+        }
+
         scanner.nextLine();
     }
 
@@ -136,7 +180,7 @@ public class produtos {
         System.out.println(ConsoleColor.cyanText("|===========================================================|"));
     }
 
-    public static void totalCompra(){
+    public static void totalCompra() {
         int total = 0;
         for (double precio : precioSeleccionado) {
             total += precio;
