@@ -6,12 +6,19 @@ public class executable {
 
     public static void main(String[] args) throws InterruptedException {
 
-        boolean exit = false;
+        // Se muestra el mensaje de bienvenida
         showMenu.welcome();
+        // Se muestra el menú principal
+        showMenu();
+    }
+
+    public static void showMenu() throws InterruptedException {
+        boolean exit = false;
+        // Se crea un objeto de la clase productos
         while (!exit) {
 
             var option = showMenu.principalMenu(null);
-
+            // Se captura la excepción en caso de que la opción no sea un número
             try {
                 option = Integer.parseInt(scanner.nextLine());
                 // switch para seleccionar el tipo de emergencia
@@ -25,6 +32,7 @@ public class executable {
                         produtos.productosEnCarrito(scanner);
                         break;
                     case 3:
+                        // Eliminar producto del carrito
                         produtos.eliminarProducto(scanner);
                         break;
                     case 4:
